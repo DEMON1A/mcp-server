@@ -21,6 +21,7 @@ interface Provider {
 
 class ClaudeDesktopProvider(private val logging: Logging, private val proxyJarManager: ProxyJarManager) : Provider {
 
+    // private val claudeConfigFileName = "claude_desktop_config.json"
     private val claudeConfigFileName = "claude_desktop_config.json"
     private val serverName = "burp"
 
@@ -72,7 +73,8 @@ class ClaudeDesktopProvider(private val logging: Logging, private val proxyJarMa
             // I edited this so it fits the claude desktop path i have in my machine, don't use this fork cause it isn't going to solve your problem, the claude folder contains some
             // randomly generated string and every machine has it's own folder name (i'm just guessing i didn't test it within multiple machines)
             // AppData\Local\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Roaming\Claude
-            os.contains("win") -> Path.of(home, "AppData", "Local", "Packages", "Claude_pzs8sxrjxfjjc", "Roaming", "Claude") // this was recently broken by claude desktop itself changing their path for MCP servers config 
+            os.contains("win") -> Path.of(home, "AppData", "Local", "Packages", "Claude_pzs8sxrjxfjjc", "LocalCache", "Roaming", "Claude")
+            // this was recently broken by claude desktop itself changing their path for MCP servers config 
             os.contains("mac") || os.contains("darwin") -> Path.of(home, "Library", "Application Support", "Claude")
             os.contains("linux") -> Path.of(home, ".config", "Claude")
             else -> return null
